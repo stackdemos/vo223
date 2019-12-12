@@ -1,0 +1,57 @@
+parameters:
+  - name: application.description
+    value: >-
+      HTML5/JavaScript application that has been deployed to AWS S3 hosted
+      website with Jenkins CI server
+  - name: application.humanName
+    value: vo223
+  - name: application.ingress
+    value: vo223.app.ml9.demo5.superhub.io
+  - name: application.name
+    value: vo223
+  - name: application.namespace
+    value: applications
+  - name: application.path
+    value: /
+  - name: application.replicas
+    value: '1'
+  - name: author.email
+    value: demo05@superhub.io
+  - name: author.id
+    value: 00u3pt26n1KEQrpF22p7
+  - name: author.name
+    value: Demo05 User
+  - name: author.organization
+    value: DEMO05
+  - name: component.dex.okta.appId
+    value: 0oa5forcjs1f6vmeS2p7
+  - name: component.dex.okta.clientId
+    value: 0oa5forcjs1f6vmeS2p7
+  - name: component.dex.okta.issuer
+    value: 'https://agilestacks.okta.com'
+  - name: component.github.repository.name
+    value: vo223
+  - name: component.github.repository.organization
+    value: stackdemos
+  - name: component.s3website.name
+    value: vo223
+  - name: component.s3website.path
+outputs:
+  - name: application.description
+  - name: application.humanName
+  - name: application.ingress
+  - name: application.name
+  - name: application.namespace
+  - name: application.path
+  - name: application.replicas
+  - name: author.email
+  - name: author.id
+  - name: author.name
+  - name: author.organization
+  - name: component.dex.okta.appId
+  - name: component.dex.okta.clientId
+  - name: component.dex.okta.issuer
+  - name: component.github.repository.name
+  - name: component.github.repository.organization
+  - name: component.s3website.name
+  - name: component.s3website.path

@@ -1,0 +1,92 @@
+version: 1
+kind: application
+meta:
+  name: 'react-es2018:1'
+  brief: S3 hosted React frontend application
+  source:
+    dir: .
+requires:
+  - kubernetes
+components:
+  - name: github-repository
+    source:
+      dir: components/github-repository
+  - name: jenkins-iam-role
+    source:
+      dir: components/jenkins-iam-role
+outputs:
+  - name: application.name
+    value: '${application.name}'
+  - name: application.theme
+  - name: application.path
+    value: '${component.s3website.path}'
+  - name: application.url
+    value: '${application.protocol}://${application.ingress}/${application.path}'
+  - name: application.bucket
+    value: '${component.s3website.bucket}'
+  - name: application.jenkins.pipeline.url
+    value: >-
+      ${component.jenkins.url}/job/${application.name}/job/${application.pipeline.name}-${application.name}
+  - name: application.git.remote
+    value: '${component.git.remote}'
+  - name: application.git.user
+    value: '${component.git.organization}'
+  - name: application.git.kind
+    values: '${application.git.kind}'
+templates:
+  files:
+    - templates/*.template
+parameters:
+  - name: application.name
+    value: react-app-next
+  - name: application.description
+    value: React application
+  - name: application.version
+    value: latest
+  - name: application.state.file
+    fromEnv: APP_STATE_FILE
+  - name: application.protocol
+    value: http
+  - name: application.ingress
+    value: '${component.s3website.name}.${dns.domain}'
+  - name: application.theme
+  - name: application.pipeline.name
+    value: main
+  - name: component.jenkins.url
+  - name: component.s3website.name
+    value: '${application.name}'
+  - name: component.s3website.path
+  - name: dns.domain
+    env: DOMAIN_NAME
+  - name: cloud.region
+  - name: terraform.bucket.name
+  - name: terraform.bucket.region
+  - name: application.git.kind
+    value: github
+  - name: component.github.token
+    fromEnv: COMPONENT_GITHUB_TOKEN
+    default: token
+  - name: component.github.repository.organization
+    kind: user
+  - name: component.github.repository.name
+    value: react-es2018
+  - name: component.github.webhook.name
+    value: github
+  - name: component.github.webhook.events.json
+    value: '["push"]'
+  - name: component.github.repository.description
+    value: '${application.description}'
+  - name: component.git.remote
+  - name: component.git.organization
+    value: '${component.github.repository.organization}'
+  - name: component.git.token
+    value: '${component.github.token}'
+  - name: cloud.role.worker
+  - name: component.jenkins-iam-role.name
+    value: '${dns.domain}/${application.name}'
+  - name: component.jenkins-iam-role.roleArn
+  - name: application.cloud.role
+lifecycle:
+  order:
+    - github-repository
+    - jenkins-iam-role

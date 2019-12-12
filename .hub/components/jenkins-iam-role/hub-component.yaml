@@ -1,0 +1,26 @@
+---
+version: 1
+kind: component
+meta:
+  name: jenkins-iam-role
+  brief: IAM role for jenkins
+  source:
+    dir: ../../components/jenkins-iam-role
+
+parameters:
+- name: component.jenkins-iam-role.name
+  env: ROLE_NAME
+- name: dns.domain
+  env: DOMAIN_NAME
+- name: cloud.region
+  env: AWS_DEFAULT_REGION
+- name: terraform.bucket
+  parameters:
+  - name: name
+    env: STATE_BUCKET
+  - name: region
+    env: STATE_REGION
+outputs:
+- name: component.jenkins-iam-role.roleArn
+  brief: Agile Stacks IAM role ARN
+  fromTfVar: role_arn
